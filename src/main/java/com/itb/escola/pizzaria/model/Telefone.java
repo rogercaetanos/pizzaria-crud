@@ -16,7 +16,7 @@ public class Telefone {
 
     @Column(nullable = false, length = 15)
     private String numero;
-    private boolean codStatus;
+    private boolean codStatus = true;
 
 
     @ManyToOne (cascade = CascadeType.MERGE, fetch = FetchType.LAZY)

@@ -34,7 +34,7 @@ public class Usuario{
     @Column(nullable = true, length = 2)
     private String uf;
     @Column(nullable = false)
-    private boolean codStatus;
+    private boolean codStatus = true;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Telefone> telefones = new ArrayList<Telefone>();

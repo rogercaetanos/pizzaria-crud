@@ -2,7 +2,11 @@ package com.itb.escola.pizzaria.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.itb.escola.pizzaria.util.BigDecimalDeserializer;
 import jakarta.persistence.*;
+
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +25,11 @@ public class Pedido {
     private LocalDateTime dataHoraCompra;
     private LocalDateTime dataHoraEntrega;
     @Column(nullable = false, columnDefinition = "DECIMAL(5,2)")
-    private double valorTotal;
+    @JsonDeserialize(using = BigDecimalDeserializer.class)
+    private BigDecimal valorTotal;
     @Column(nullable = false, length = 20)
     private String status;
-    private boolean codStatus;
+    private boolean codStatus = true;
 
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -70,11 +75,11 @@ public class Pedido {
         this.dataHoraEntrega = dataHoraEntrega;
     }
 
-    public double getValorTotal() {
+    public BigDecimal getValorTotal() {
         return valorTotal;
     }
 
-    public void setValorTotal(double valorTotal) {
+    public void setValorTotal(BigDecimal valorTotal) {
         this.valorTotal = valorTotal;
     }
 

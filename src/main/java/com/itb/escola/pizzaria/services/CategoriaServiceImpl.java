@@ -80,6 +80,7 @@ public class CategoriaServiceImpl implements CategoriaService {
         Categoria categoriaDb = categoriaRepository.findById(id).get();
         categoriaDb.setNome(categoria.getNome());
         categoriaDb.setDescricao(categoria.getDescricao());
+        categoriaDb.setCodStatus(categoria.isCodStatus());
         return categoriaRepository.save(categoriaDb);
 
     }

@@ -1,7 +1,11 @@
 package com.itb.escola.pizzaria.model;
 
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.itb.escola.pizzaria.util.BigDecimalDeserializer;
 import jakarta.persistence.*;
+
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
@@ -14,8 +18,9 @@ public class ItemPedido {
    @Column(nullable = false)
    private int quantidadeItem;
    @Column(nullable = false, columnDefinition = "DECIMAL(5,2)")
-   private double precoUnitario;
-   private boolean codStatus;
+   @JsonDeserialize(using = BigDecimalDeserializer.class)
+   private BigDecimal precoUnitario;
+   private boolean codStatus = true;
 
     @ManyToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "pedido_id", referencedColumnName = "id", nullable = false)
@@ -48,11 +53,11 @@ public class ItemPedido {
         this.quantidadeItem = quantidadeItem;
     }
 
-    public double getPrecoUnitario() {
+    public BigDecimal getPrecoUnitario() {
         return precoUnitario;
     }
 
-    public void setPrecoUnitario(double precoUnitario) {
+    public void setPrecoUnitario(BigDecimal precoUnitario) {
         this.precoUnitario = precoUnitario;
     }
 

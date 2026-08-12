@@ -2,7 +2,11 @@ package com.itb.escola.pizzaria.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.itb.escola.pizzaria.util.BigDecimalDeserializer;
 import jakarta.persistence.*;
+
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -36,22 +40,23 @@ public class Produto {
     private String nome;
     @Column(nullable = true, length = 45)
     private String tipo;
-
     @Column(nullable = true, length = 250)
     private String descricao;
     @Column(nullable = true, columnDefinition = "DECIMAL(5,2)")
-    private double precoCompra;
+    @JsonDeserialize(using = BigDecimalDeserializer.class)
+    private BigDecimal precoCompra = BigDecimal.ZERO;
     @Column(nullable = true, columnDefinition = "DECIMAL(5,2)")
-    private double precoVenda;
+    @JsonDeserialize(using = BigDecimalDeserializer.class)
+    private BigDecimal precoVenda = BigDecimal.ZERO;;
     @Column(nullable = true)
-    private int quantidadeEstoque;
-    private boolean codStatus;
+    private int quantidadeEstoque = 0;
+    private boolean codStatus = true;
 
     public Produto() {
 
     }
 
-    public Produto(Long id, String nome,String tipo, double precoVenda, int quantidadeEstoque) {
+    public Produto(Long id, String nome,String tipo, BigDecimal precoVenda, int quantidadeEstoque) {
         this.id = id;
         this.nome = nome;
         this.tipo = tipo;
@@ -59,7 +64,7 @@ public class Produto {
         this.quantidadeEstoque = quantidadeEstoque;
     }
 
-    public Produto(Long id,String nome,String tipo, double precoVenda, int quantidadeEstoque, Categoria categoria) {
+    public Produto(Long id,String nome,String tipo, BigDecimal precoVenda, int quantidadeEstoque, Categoria categoria) {
         this.id = id;
         this.nome = nome;
         this.tipo = tipo;
@@ -122,19 +127,19 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public double getPrecoCompra() {
+    public BigDecimal getPrecoCompra() {
         return precoCompra;
     }
 
-    public void setPrecoCompra(double precoCompra) {
+    public void setPrecoCompra(BigDecimal precoCompra) {
         this.precoCompra = precoCompra;
     }
 
-    public double getPrecoVenda() {
+    public BigDecimal getPrecoVenda() {
         return precoVenda;
     }
 
-    public void setPrecoVenda(double precoVenda) {
+    public void setPrecoVenda(BigDecimal precoVenda) {
         this.precoVenda = precoVenda;
     }
 
@@ -193,17 +198,24 @@ public class Produto {
             mensagemErro += "O nome do produto é obrigatório:";
             isValid = false;
         }
-        if(precoCompra < 0){
-            precoCompra = 0;
+        if(tipo == null || tipo.isEmpty()){
+            mensagemErro += "O tipo do produto é obrigatório:";
+            isValid = false;
+        }
+        if(descricao == null || descricao.isEmpty()){
+            mensagemErro += "A descrição do produto é obrigatório:";
+            isValid = false;
+        }
+        if (precoVenda.compareTo(BigDecimal.ZERO) < 0) {
+            mensagemErro += "O preço de venda do produto deve ser maior que zero:";
+            isValid = false;
+        }
+
+        if (precoCompra.compareTo(BigDecimal.ZERO) < 0) {
             mensagemErro += "O preço de compra do produto deve ser maior que zero:";
             isValid = false;
         }
 
-        if(precoVenda < 0){
-            precoVenda = 0;
-            mensagemErro += "O preço de venda produto deve ser maior que zero:";
-            isValid = false;
-        }
         return isValid;
     }
 

@@ -24,7 +24,7 @@ public class Categoria {
     @Column(nullable = true, length = 100)
     private String descricao;
 
-    private boolean codStatus;
+    private boolean codStatus = true;
 
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore

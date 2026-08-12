@@ -9,6 +9,7 @@ import com.itb.escola.pizzaria.repository.ProdutoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -94,8 +95,14 @@ public class ProdutoServiceImpl implements ProdutoService {
         produtoDb.setDescricao(produto.getDescricao());
         produtoDb.setTipo(produto.getTipo());
         produtoDb.setPrecoVenda(produto.getPrecoVenda());
+        produtoDb.setCodStatus(produto.isCodStatus());
+      //  if (produto.getPrecoCompra() != null && produto.getPrecoCompra().compareTo(BigDecimal.ZERO) > 0) {
         produtoDb.setPrecoCompra(produto.getPrecoCompra());
-        produtoDb.setQuantidadeEstoque(produto.getQuantidadeEstoque());
+      //  }
+      //  if (produto.getQuantidadeEstoque() > 0) {
+         produtoDb.setQuantidadeEstoque(produto.getQuantidadeEstoque());
+      //  }
+
         if(produto.getCategoria() != null) {
             Categoria categoriaDb = categoriaService.findById(produto.getCategoria().getId());
             if (categoriaDb == null) {

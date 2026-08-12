@@ -9,6 +9,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.math.BigDecimal;
+
 @SpringBootApplication
 public class PizzariaApplication {
 
@@ -30,16 +32,16 @@ public class PizzariaApplication {
 			  categoria = categoriaService.save(categoria);
 			  categoria2 = categoriaService.save(categoria2);
 
-			  Produto produto = new Produto(null,"Muçarela","Grande", 47.99, 100 );
+			  Produto produto = new Produto(null,"Muçarela","Grande", new BigDecimal(47.99), 100 );
 			  produto.setCodStatus(true);
 			  produto.setDescricao("A pizza é coberta com molho de tomate, queijo tipo mussarela, azeitonas pretas e orégano e massa com fermentação natural");
-			  Produto produto1 = new Produto(null,"Calabresa", "Grande",39.99, 100);
+			  Produto produto1 = new Produto(null,"Calabresa", "Grande",new BigDecimal(39.99), 100);
 			  produto1.setCodStatus(true);
 			  produto1.setDescricao("Uma deliciosa combinação de Linguiça Calabresa, rodelas de cebolas frescas, azeitonas pretas, mussarela, polpa de tomate, orégano e massa especial");
-			  Produto produto2 = new Produto(null,"Romeu e Julieta", "Brotinho",35.60, 50);
+			  Produto produto2 = new Produto(null,"Romeu e Julieta", "Brotinho",new BigDecimal(35.60), 50);
 			  produto2.setCodStatus(true);
 			  produto2.setDescricao("O sabor leve da goiabada em conjunto com a mussarela é a representação do sucesso garantido");
-			  Produto produto3 = new Produto(null,"Chocolate com morangos", "Brotinho",35.60, 50);
+			  Produto produto3 = new Produto(null,"Chocolate com morangos", "Brotinho",new BigDecimal(35.60), 50);
 			  produto3.setCodStatus(true);
 			  produto3.setDescricao("Pizza de Chocolate com Morangos deliciosa feita com Cobertura Chocolate Meio Amargo NESTLÉ DOIS FRADES e NESTLÉ Creme de Leite");
 

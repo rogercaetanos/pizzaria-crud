@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:sqlserver://localhost:1433;databaseName=pizzaria_cruddb;integratedSecurity=false;encrypt=true;trustServerCertificate=true  # BF-SERVERLAB-1
+    username: sa
+    password: '@ITB123456'
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  jpa:
+    database-platform: org.hibernate.dialect.SQLServerDialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true # Isso mostra as consultas SQL no console para fins de debug
+
